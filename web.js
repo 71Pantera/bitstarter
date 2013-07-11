@@ -4,7 +4,7 @@ var fs = require('fs')
 
 var app = express.createServer(express.logger());
 
-var buf =  fs.readFile('./Index.html');
+var buf =  fs.readFile('index.html');
 
 var cont = buf.toString('utf8');
 
