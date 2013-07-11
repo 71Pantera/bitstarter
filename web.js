@@ -9,7 +9,7 @@ var buf =  fs.readFileSync("index.html");
 var cont = buf.toString('utf8');
 
 app.get('/', function(request, response) {
-  response.send('Hello World!');
+  response.send(cont);
 });
 
 var port = process.env.PORT || 5000;
