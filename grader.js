@@ -73,11 +73,13 @@ if(require.main == module) {
     var fopt = false;
     var uopt = false;
     
-    if(process.argv.indexOf("-f") > -1){
+
+    if(process.argv[4] == "--file"){
 	fopt = true;
+
 	}
     
-    if(process.argv.indexOf("-u") > -1){
+    if(process.argv[4] == "--url"){
 	uopt = true;
 	}
     
@@ -88,17 +90,20 @@ if(require.main == module) {
 		sys.puts('Error: ' + result.message);
 		this.retry(5000);
 		}else{
-		    var checkJson = checkHtmlFile(urlstr(result), program.checks);
-                var outJson = JSON.stringify(checkJson, null, 4);
-                console.log(outJson);
-		    }
-	    
-	    });
-	
-	var urlstr = function (data){
-	    return data.toString();
-	    };
-	
+		    fs.writeFile("./index_tmp.html",result, function(err) {
+			if (err) {
+			    console.log("index_tmp.hmtl: " + err)
+			}else{
+			    var checkJson = checkHtmlFile("./index_tmp.html", program.checks);
+			    var outJson = JSON.stringify(checkJson, null, 4);
+			    console.log(outJson);
+			    };
+			});
+
+                }
+            });
+
+
 	}else{
 	    var checkJson = checkHtmlFile(program.file, program.checks);
 	    var outJson = JSON.stringify(checkJson, null, 4);
